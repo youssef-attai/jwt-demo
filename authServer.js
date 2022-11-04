@@ -33,6 +33,13 @@ app.post("/token", (req, res) => {
   });
 });
 
+// Remove a refresh roken from the database so it is no longer authorized to
+// generate access tokens
+app.delete('/logout', (req, res) => {
+  refreshTokens = refreshTokens.filter(token => token !== req.body.token)
+  res.sendStatus(204)
+})
+
 // Request a refresh token to use in generating access tokens
 app.post("/login", (req, res) => {
   // Authenticate User
