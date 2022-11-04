@@ -18,6 +18,7 @@ const posts = [
 ];
 
 const app = express();
+app.use(express.json());
 
 app.get("/posts", (req, res) => {
   res.json(posts);
