@@ -1,9 +1,18 @@
 GET http://127.0.0.1:5555/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiT21hciIsImlhdCI6MTY2NzU0NzkzMn0.SXUCAzGUrfjlbrzhfkbhKm40K5FWeAo-MPBM_Z0lNVY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiT21hciIsImlhdCI6MTY2NzU1MDMyMiwiZXhwIjoxNjY3NTUwMzM3fQ.jtduFSaP4zHKYTjzfPOSq598ToOGi_e8o5qonabaTRs
 
 ###
 
-POST http://127.0.0.1:5555/login
+POST http://127.0.0.1:6666/token
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiT21hciIsImlhdCI6MTY2NzU1MDI3NX0.88hfvYmKZeqCxipV0wxvrExxcY3pym3H4kwRsezChtE"
+}
+
+###
+
+POST http://127.0.0.1:6666/login
 Content-Type: application/json
 
 {
