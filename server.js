@@ -8,11 +8,11 @@ import express from "express";
 
 const posts = [
   {
-    username: "Youssef",
+    name: "Youssef",
     title: "Post 1",
   },
   {
-    username: "Omar",
+    name: "Omar",
     title: "Post 2",
   },
 ];
@@ -24,7 +24,7 @@ app.use(express.json());
 // After token authentication, this route's request object will have access
 // to the JWT decrypted data
 app.get("/posts", authenticateToken, (req, res) => {
-  res.json(posts.filter((post) => post.username == req.user.name));
+  res.json(posts.filter((post) => post.name == req.user.name));
 });
 
 function authenticateToken(req, res, next) {
