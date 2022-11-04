@@ -12,7 +12,6 @@ app.use(express.json());
 
 // Should be stored in some sort of database
 let refreshTokens = [];
-
 const users = [];
 
 // Request an access token from a refresh token
