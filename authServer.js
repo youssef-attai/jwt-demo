@@ -33,6 +33,7 @@ app.post("/token", (req, res) => {
   });
 });
 
+// Request a refresh token to use in generating access tokens
 app.post("/login", (req, res) => {
   // Authenticate User
 
@@ -41,16 +42,13 @@ app.post("/login", (req, res) => {
   // Data to be encrypted with JWT
   const user = { name: username };
 
-  // Create access token with expiration datetime
-  const accessToken = generateAccessToken(user);
-
   // Create a refresh token for the same encrypted data
   const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
 
   // Save the refresh token for later use (used in token verification to generate new access tokens)
   refreshTokens.push(refreshToken);
 
-  res.json({ accessToken, refreshToken });
+  res.json({ refreshToken });
 });
 
 function generateAccessToken(data) {
