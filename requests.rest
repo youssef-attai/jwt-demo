@@ -1,5 +1,5 @@
 GET http://127.0.0.1:5555/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiWW91c3NlZiIsImlhdCI6MTY2NzU0NzQ4M30.eBtoErEqxQNklie6m9VPhKjqDKWi66t-S2njPmJieHE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiT21hciIsImlhdCI6MTY2NzU0NzkzMn0.SXUCAzGUrfjlbrzhfkbhKm40K5FWeAo-MPBM_Z0lNVY
 
 ###
 
@@ -7,5 +7,5 @@ POST http://127.0.0.1:5555/login
 Content-Type: application/json
 
 {
-    "username": "Youssef"
+    "username": "Omar"
 }
