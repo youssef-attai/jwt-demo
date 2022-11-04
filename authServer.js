@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 
 // Should be stored in some sort of database
-const refreshTokens = [];
+let refreshTokens = [];
 
 // Request an access token from a refresh token
 app.post("/token", (req, res) => {
