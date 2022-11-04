@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 dotenv.config();
 
 const PORT = process.env.PORT;
