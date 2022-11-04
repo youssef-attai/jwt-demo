@@ -76,7 +76,7 @@ app.post("/login", async (req, res) => {
 
 // Generate access token for data with expiration datetime
 function generateAccessToken(data) {
-  return jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15s" });
+  return jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2m" });
 }
 
 // Get all users (TESTING ONLY)
