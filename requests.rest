@@ -1,5 +1,5 @@
 GET http://127.0.0.1:5555/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiT21hciIsImlhdCI6MTY2NzU1MDMyMiwiZXhwIjoxNjY3NTUwMzM3fQ.jtduFSaP4zHKYTjzfPOSq598ToOGi_e8o5qonabaTRs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiWW91c3NlZiIsImlhdCI6MTY2NzU1MDg1OCwiZXhwIjoxNjY3NTUwODczfQ.u77bHWG6M0QEKVAzvRvlE-jKdsHzLWKpTVFLkQWYOJk
 
 ###
 
@@ -7,7 +7,17 @@ POST http://127.0.0.1:6666/token
 Content-Type: application/json
 
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiT21hciIsImlhdCI6MTY2NzU1MDI3NX0.88hfvYmKZeqCxipV0wxvrExxcY3pym3H4kwRsezChtE"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiWW91c3NlZiIsImlhdCI6MTY2NzU1MDgyNH0.EHMjE0K0H5xTdilODvHbM1vXf105m0Y4FbWBFfrcxRk"
+}
+
+###
+
+
+DELETE http://127.0.0.1:6666/logout
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiWW91c3NlZiIsImlhdCI6MTY2NzU1MDgyNH0.EHMjE0K0H5xTdilODvHbM1vXf105m0Y4FbWBFfrcxRk"
 }
 
 ###
@@ -16,5 +26,5 @@ POST http://127.0.0.1:6666/login
 Content-Type: application/json
 
 {
-    "username": "Omar"
+    "username": "Youssef"
 }
