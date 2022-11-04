@@ -1,4 +1,5 @@
 import * as dotenv from "dotenv";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 dotenv.config();
 
@@ -11,6 +12,7 @@ app.use(express.json());
 
 // Should be stored in some sort of database
 let refreshTokens = [];
+const users = [];
 
 // Request an access token from a refresh token
 app.post("/token", (req, res) => {
@@ -35,32 +37,68 @@ app.post("/token", (req, res) => {
 
 // Remove a refresh roken from the database so it is no longer authorized to
 // generate access tokens
-app.delete('/logout', (req, res) => {
-  refreshTokens = refreshTokens.filter(token => token !== req.body.token)
-  res.sendStatus(204)
-})
-
-// Request a refresh token to use in generating access tokens
-app.post("/login", (req, res) => {
-  // Authenticate User
-
-  const username = req.body.username;
-
-  // Data to be encrypted with JWT
-  const user = { name: username };
-
-  // Create a refresh token for the same encrypted data
-  const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
-
-  // Save the refresh token for later use (used in token verification to generate new access tokens)
-  refreshTokens.push(refreshToken);
-
-  res.json({ refreshToken });
+app.delete("/logout", (req, res) => {
+  refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
+  res.sendStatus(204);
 });
 
+// Request a refresh token to use in generating access tokens
+app.post("/login", async (req, res) => {
+  // Find the user by the provided name
+  const user = users.find((u) => u.name === req.body.name);
+
+  // If it is not found
+  if (user == null) return res.sendStatus(404);
+
+  // If all goes well
+  try {
+    // Compare the provided password with the user's password that is stored in the database
+    if (await bcrypt.compare(req.body.password, user.password)) {
+
+      // Data to be encrypted with JWT
+      const userData = { name: req.body.name };
+
+      // Create a refresh token for the same encrypted data
+      const refreshToken = jwt.sign(userData, process.env.REFRESH_TOKEN_SECRET);
+
+      // Save the refresh token for later use (used in token verification to generate new access tokens)
+      refreshTokens.push(refreshToken);
+
+      // Respond with the refresh token
+      res.json({ refreshToken });
+    } else {
+      res.sendStatus(401);
+    }
+  } catch {
+    res.sendStatus(500);
+  }
+});
+
+// Generate access token for data with expiration datetime
 function generateAccessToken(data) {
-  // Generate access token for data with expiration datetime
-  return jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15s" });
+  return jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2m" });
 }
+
+// Get all users (TESTING ONLY)
+app.get("/users", (req, res) => {
+  res.json(users);
+});
+
+// Create user and save him to the database
+app.post("/users", async (req, res) => {
+  try {
+    // Hash the provided password
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    // Create the user object/record
+    const user = { name: req.body.name, password: hashedPassword };
+
+    // Add the user to the database
+    users.push(user);
+    res.sendStatus(201);
+  } catch {
+    res.sendStatus(500);
+  }
+});
 
 app.listen(PORT, () => console.log(`Running on http://127.0.0.1:${PORT}`));

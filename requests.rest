@@ -1,30 +1,61 @@
-GET http://127.0.0.1:5555/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiWW91c3NlZiIsImlhdCI6MTY2NzU1MDg1OCwiZXhwIjoxNjY3NTUwODczfQ.u77bHWG6M0QEKVAzvRvlE-jKdsHzLWKpTVFLkQWYOJk
-
-###
-
+# Get an access token using a refresh token
 POST http://127.0.0.1:6666/token
 Content-Type: application/json
 
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiWW91c3NlZiIsImlhdCI6MTY2NzU1MDgyNH0.EHMjE0K0H5xTdilODvHbM1vXf105m0Y4FbWBFfrcxRk"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoieW91c3NlZiIsImlhdCI6MTY2NzU3ODYwOX0.1DshEO1s38rLFQ3wkRfSgz-T1XgQlDtwmfQSA2uUj90"
 }
 
 ###
 
-
-DELETE http://127.0.0.1:6666/logout
-Content-Type: application/json
-
-{
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiWW91c3NlZiIsImlhdCI6MTY2NzU1MDgyNH0.EHMjE0K0H5xTdilODvHbM1vXf105m0Y4FbWBFfrcxRk"
-}
-
-###
-
+# Login user and get a refresh token
 POST http://127.0.0.1:6666/login
 Content-Type: application/json
 
 {
-    "username": "Youssef"
+    "name": "youssef",
+    "password": "lmao"
 }
+
+###
+
+# Create a new user
+POST http://127.0.0.1:6666/users
+Content-Type: application/json
+
+{
+    "name": "youssef",
+    "password": "lmao"
+}
+
+###
+
+# Create a new post by current user
+POST http://127.0.0.1:5555/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoieW91c3NlZiIsImlhdCI6MTY2NzU3ODYyMSwiZXhwIjoxNjY3NTc4NzQxfQ.YBtxauOucybqo5TexQFuK88Ht5J_0_VSK3kwfYnOjdY
+Content-Type: application/json
+
+{
+    "title": "LMAO MAN"
+}
+
+###
+
+# Logout user (i.e. remove their refresh token from the database)
+DELETE http://127.0.0.1:6666/logout
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoieW91c3NlZiIsImlhdCI6MTY2NzU3ODYwOX0.1DshEO1s38rLFQ3wkRfSgz-T1XgQlDtwmfQSA2uUj90"
+}
+
+###
+
+# Get current user's posts
+GET http://127.0.0.1:5555/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoieW91c3NlZiIsImlhdCI6MTY2NzU3ODYyMSwiZXhwIjoxNjY3NTc4NzQxfQ.YBtxauOucybqo5TexQFuK88Ht5J_0_VSK3kwfYnOjdY
+
+###
+
+# Get all users (TESTING ONLY)
+GET http://127.0.0.1:6666/users

@@ -6,16 +6,8 @@ const PORT = process.env.SERVER_PORT;
 
 import express from "express";
 
-const posts = [
-  {
-    username: "Youssef",
-    title: "Post 1",
-  },
-  {
-    username: "Omar",
-    title: "Post 2",
-  },
-];
+// Should be saved in some sort of database
+const posts = [];
 
 const app = express();
 app.use(express.json());
@@ -24,7 +16,16 @@ app.use(express.json());
 // After token authentication, this route's request object will have access
 // to the JWT decrypted data
 app.get("/posts", authenticateToken, (req, res) => {
-  res.json(posts.filter((post) => post.username == req.user.name));
+  res.json(posts.filter((post) => post.name == req.user.name));
+});
+
+// Create a post
+app.post("/posts", authenticateToken, (req, res) => {
+  posts.push({
+    name: req.user.name,
+    title: req.body.title,
+  });
+  res.sendStatus(201);
 });
 
 function authenticateToken(req, res, next) {
